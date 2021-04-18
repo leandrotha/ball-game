@@ -25,6 +25,12 @@ class GameScene: SKScene {
     lazy var ball: Ball = {
         return Ball(withOrigin: board.getBottomEdge())
     }()
+    lazy var ball2: Ball = {
+        return Ball(withOrigin: board.getBottomEdge())
+    }()
+    lazy var ball3: Ball = {
+        return Ball(withOrigin: board.getBottomEdge())
+    }()
     lazy var externalObstacle: Obstacle = {
         let sceneCenter = CGPoint(x: frame.midX, y: frame.midY)
         let rect = CGRect(origin: sceneCenter, size: frame.size / 1.35)
@@ -48,7 +54,7 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         if let accelerometerData = motionManager.accelerometerData {
-            physicsWorld.gravity = CGVector(dx: -accelerometerData.acceleration.y * 50, dy: accelerometerData.acceleration.x * 50)
+            physicsWorld.gravity = CGVector(dx: -accelerometerData.acceleration.y * 100, dy: accelerometerData.acceleration.x * 100)
         }
     }
 }
@@ -65,6 +71,8 @@ extension GameScene {
         addChild(background)
         addChild(board)
         addChild(ball)
+        addChild(ball2)
+        addChild(ball3)
         addChild(externalObstacle)
         addChild(internalObstacle)
     }
@@ -86,5 +94,7 @@ extension GameScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let possibilityArray: [BallColor] = [.blue, .cyan, .green, .grey, .purple, .red, .yellow]
         ball.ballColor = possibilityArray.shuffled().first!
+        ball2.ballColor = possibilityArray.shuffled().first!
+        ball3.ballColor = possibilityArray.shuffled().first!        
     }
 }
